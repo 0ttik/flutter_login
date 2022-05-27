@@ -304,7 +304,8 @@ class FlutterLogin extends StatefulWidget {
       this.savedPassword = '',
       this.initialAuthMode = AuthMode.login,
       this.children,
-      this.scrollable = false})
+      this.scrollable = false,
+      this.hidePassword = false})
       : assert((logo is String?) || (logo is ImageProvider?)),
         logo = logo is String ? AssetImage(logo) : logo,
         super(key: key);
@@ -426,6 +427,9 @@ class FlutterLogin extends StatefulWidget {
   /// of resizing the window.
   /// Default: false
   final bool scrollable;
+
+  /// Hides both password fields
+  final bool hidePassword;
 
   static String? defaultEmailValidator(value) {
     if (value!.isEmpty || !Regex.email.hasMatch(value)) {
@@ -811,6 +815,7 @@ class _FlutterLoginState extends State<FlutterLogin>
                         navigateBackAfterRecovery:
                             widget.navigateBackAfterRecovery,
                         scrollable: widget.scrollable,
+                        hidePassword: widget.hidePassword,
                       ),
                     ),
                     Positioned(

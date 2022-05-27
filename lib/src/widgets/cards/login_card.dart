@@ -12,6 +12,7 @@ class _LoginCard extends StatefulWidget {
     required this.requireAdditionalSignUpFields,
     required this.onSwitchConfirmSignup,
     required this.requireSignUpConfirmation,
+    required this.hidePassword,
     this.onSwitchAuth,
     this.onSubmitCompleted,
     this.hideForgotPasswordButton = false,
@@ -35,6 +36,7 @@ class _LoginCard extends StatefulWidget {
   final LoginUserType userType;
   final bool requireAdditionalSignUpFields;
   final bool requireSignUpConfirmation;
+  final bool hidePassword;
 
   @override
   _LoginCardState createState() => _LoginCardState();
@@ -315,6 +317,9 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
   }
 
   Widget _buildPasswordField(double width, LoginMessages messages, Auth auth) {
+    if (widget.hidePassword) {
+      return Container();
+    }
     return AnimatedPasswordTextFormField(
       animatedWidth: width,
       loadingController: widget.loadingController,
@@ -601,8 +606,10 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 _buildUserField(textFieldWidth, messages, auth),
-                const SizedBox(height: 20),
-                _buildPasswordField(textFieldWidth, messages, auth),
+                if (!widget.hidePassword) ...[
+                  const SizedBox(height: 20),
+                  _buildPasswordField(textFieldWidth, messages, auth)
+                ],
                 const SizedBox(height: 10),
               ],
             ),
@@ -621,11 +628,11 @@ class _LoginCardState extends State<_LoginCard> with TickerProviderStateMixin {
             padding: const EdgeInsets.symmetric(horizontal: cardPadding),
             onExpandCompleted: () => _postSwitchAuthController.forward(),
             child: Column(children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10.0),
-                child:
-                    _buildConfirmPasswordField(textFieldWidth, messages, auth),
-              ),
+              if (!widget.hidePassword)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0),
+                  child: _buildConfirmPasswordField(textFieldWidth, messages, auth),
+                ),
               for (var e in auth.termsOfService)
                 TermCheckbox(
                   termOfService: e,
