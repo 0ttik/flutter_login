@@ -1,3 +1,7 @@
+## 4.1.0
+Features: 
+* Added hide password option.
+
 ## 4.0.0-beta.1
 BREAKING CHANGES:
 * Upgraded font_awesome_flutter from v9 to v10
