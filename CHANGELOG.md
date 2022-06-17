@@ -1,3 +1,7 @@
+## 5.0.0
+BREAKING CHANGES: 
+* Mirgated to Flutter 3.x
+
 ## 4.1.0
 Features: 
 * Added hide password option.
