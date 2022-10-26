@@ -1,3 +1,8 @@
+## 4.2.0
+
+* Added option to set confirmation code [InputType].
+* Deprecated [onConfirmCallback], now use [confirmationOptions] parameter. 
+
 ## 4.0.0
 BREAKING CHANGES:
 Flutter 3 or higher is required. All other dependencies are updated to match this.
